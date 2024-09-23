@@ -1,5 +1,6 @@
 package com.ms.ifood.payment.model;
 
+import com.ms.ifood.payment.dtos.PaymentDto;
 import com.ms.ifood.payment.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
     @Table(name = "pagamentos")
     @Data
     @EqualsAndHashCode(of = "id")
-    public class Payment {
+    public class Payment  {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
@@ -41,6 +42,17 @@ import java.math.BigDecimal;
         private Long pedidoId;
         @NotNull
         private Long formaDePagamentoId;
+
+        public Payment(PaymentDto dto) {
+            this.nome = dto.getNome();
+            this.codigo = dto.getCodigo();
+            this.expiracao = dto.getExpiracao();
+            this.formaDePagamentoId = dto.getFormaDePagamentoId();
+            this.numero = dto.getNumero();
+            this.status = dto.getStatus();
+            this.valor = dto.getValor();
+            this.pedidoId = dto.getPedidoId();
+        }
 
         public Long getId() {
             return id;

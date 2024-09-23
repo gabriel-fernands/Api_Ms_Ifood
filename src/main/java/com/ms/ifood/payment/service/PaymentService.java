@@ -33,6 +33,11 @@ public class PaymentService {
                 .map(paymentDto::convertToDto)
                 .orElseThrow(() -> new RuntimeException("Entidade não encontrada"));
     }
+    public PaymentDto atualizarPayment(Long id, PaymentDto paymentDto){
+        Payment payment = this.toEntity.convertToEntity(paymentDto);
+        payment.setId(id);
+        return this.paymentDto.convertToDto(repository.save(payment));
+    }
 
     public PaymentDto criarPagamento(PaymentDto paymentDto) {
         Payment payment = this.toEntity.convertToEntity(paymentDto);
